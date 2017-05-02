@@ -1,5 +1,9 @@
+body {
+    font-family: Lucida Sans Unicode;
+}
 form {
 	margin-top: 3em;
+	padding-left: 10px;
 }
 
 ul {
@@ -9,16 +13,12 @@ ul {
 
 table {
 	float: left; 
-	border: 1px solid red;
+	border: 1px solid #D3D3D3;
 	width: 40%;
 }
 
 th, td {
-	border: 1px solid red;
-}
-
-map {
-  text-align: center;
+	border: 1px solid #D3D3D3;
 }
 
 input {
@@ -35,12 +35,18 @@ button {
 	margin: 0 auto;
 }
 
+h2 {
+	text-align: center;
+}
+
 #reservationForm {
 	float: left; 
-	border: 1px solid red;
+	border: 1px solid #D3D3D3;
 	clear: right;
 	width: 40%;
-	margin-right: 20px; 
+	margin-right: 40px; 
+	margin-left: 40px;
+	padding-bottom: 10px;
 }
 
 #dineHeader {
@@ -53,7 +59,10 @@ button {
 }
 
 #map {
-  border: 1px solid red;
+  border: 1px solid #D3D3D3;
+  height: 300px;
+  width: 80%;
+  margin: auto;
 }
 
 #dineImg {
@@ -79,6 +88,7 @@ button {
 
 .centered {
 	margin: auto;
+	margin-top: 20px;
     width: 25%;
 }
 

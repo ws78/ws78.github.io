@@ -40,5 +40,3 @@ function initMap() {
      console.log(restaurantLocation);
     
 }
-
-initMap();
