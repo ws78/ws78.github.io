@@ -1,0 +1,84 @@
+form {
+	margin-top: 3em;
+}
+
+ul {
+	margin-top: 3em;
+	list-style: none;
+}
+
+table {
+	float: left; 
+	border: 1px solid red;
+	width: 40%;
+}
+
+th, td {
+	border: 1px solid red;
+}
+
+map {
+  text-align: center;
+}
+
+input {
+	width: 70%;
+	float: right;
+	margin-left: 15px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+button {
+	width:50%;
+	display: block;
+	margin: 0 auto;
+}
+
+#reservationForm {
+	float: left; 
+	border: 1px solid red;
+	clear: right;
+	width: 40%;
+	margin-right: 20px; 
+}
+
+#dineHeader {
+	clear: both;
+}
+
+#headerImg {
+  width: 100%;
+  z-index: 0;
+}
+
+#map {
+  border: 1px solid red;
+}
+
+#dineImg {
+    margin: auto;
+    width: 40%;
+    float: left;
+    margin-right: 20px;
+}
+
+#quote {
+	float: left;
+	margin-left: 3px;
+	width: 40%;
+}
+
+#quote p {
+	text-align: right;
+}
+
+#subReview {
+	font-style: italic;
+}
+
+.centered {
+	margin: auto;
+    width: 25%;
+}
+
