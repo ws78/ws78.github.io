@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+   		<meta charset="UTF-8">
+   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+   		<title>Add Recipe</title>
+   		<!-- Bootstrap -->
+    	<link href="css/bootstrap.min.css" rel="stylesheet"> 
+   		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+	</head>
+	<body>
+		<!--my code goes here -->
+		<!--Username, when logged in -->
+		<h3>username</h3>
+
+		<!-- page header -->
+		<h1>Add Recipe</h1>
+
+		<!-- long form with all the input fields for the recipe -->
+		<form>
+    		<input id="recipeName" type="text" placeholder="Recipe Name"><br>
+    		<input id="prepTime" type="text" placeholder="Prep Time"><br>
+    		<input id="cookingTime" type="text" placeholder="Cooking Time"><br>
+    		<button>Save Recipe</button>
+		</form>
+
+    	<!--recipe metadata will go here for testing. eventually this goes on another page -->
+    	<!--Create a template in the HTML with placeholders for any data we'll want to add. -->
+    	<div id="recipeData">
+    		<script id="entry-template" type="text/x-handlebars-template">
+      			<h2>{{recipeName}}</h2>
+      			<div>
+        			<p id="prep">{{prepTime}}</p>
+      			</div>
+      		</script>
+    	</div>
+
+
+
+  		<!-- Firebase -->
+  		<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   	 	<!-- Include all compiled plugins (below), or include individual files as needed -->
+    	<script src="js/bootstrap.min.js"></script>
+    	<script src="js/handlebars-v4.0.5.js"></script> <!-- add handlebars -->
+		<!-- <script src="js/jquery-3.2.1.slim.js"></script> jQuery --> 
+   		<script src="js/main.js"></script> <!-- main.js -->
+   		<!--
+   		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDbt1M_Y1NT5NIZ27O1y0L-PXT5-bEIjs&callback=initMap" async defer></script>
+   		-->
+ 		<!-- Google Maps script -->
+	</body>
+</html>

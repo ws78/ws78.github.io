@@ -1,94 +1,100 @@
-body {
-    font-family: Lucida Sans Unicode;
+/* code for drop down menus 
+span.multiselect-native-select {
+	position: relative
 }
-form {
-	margin-top: 3em;
-	padding-left: 10px;
+span.multiselect-native-select select {
+	border: 0!important;
+	clip: rect(0 0 0 0)!important;
+	height: 1px!important;
+	margin: -1px -1px -1px -3px!important;
+	overflow: hidden!important;
+	padding: 0!important;
+	position: absolute!important;
+	width: 1px!important;
+	left: 50%;
+	top: 30px
 }
-
-ul {
-	margin-top: 3em;
-	list-style: none;
+.multiselect-container {
+	position: absolute;
+	list-style-type: none;
+	margin: 0;
+	padding: 0
 }
-
-table {
-	float: left; 
-	border: 1px solid #D3D3D3;
-	width: 40%;
+.multiselect-container .input-group {
+	margin: 5px
 }
-
-th, td {
-	border: 1px solid #D3D3D3;
+.multiselect-container>li {
+	padding: 0
 }
-
-input {
-	width: 70%;
-	float: right;
-	margin-left: 15px;
-	margin-right: 10px;
-	margin-bottom: 10px;
+.multiselect-container>li>a.multiselect-all label {
+	font-weight: 700
 }
-
-button {
-	width:50%;
-	display: block;
-	margin: 0 auto;
+.multiselect-container>li.multiselect-group label {
+	margin: 0;
+	padding: 3px 20px 3px 20px;
+	height: 100%;
+	font-weight: 700
 }
-
-h2 {
-	text-align: center;
+.multiselect-container>li.multiselect-group-clickable label {
+	cursor: pointer
 }
-
-#reservationForm {
-	float: left; 
-	border: 1px solid #D3D3D3;
-	clear: right;
-	width: 40%;
-	margin-right: 40px; 
-	margin-left: 40px;
-	padding-bottom: 10px;
+.multiselect-container>li>a {
+	padding: 0
 }
-
-#dineHeader {
-	clear: both;
+.multiselect-container>li>a>label {
+	margin: 0;
+	height: 100%;
+	cursor: pointer;
+	font-weight: 400;
+	padding: 3px 0 3px 30px
 }
-
-#headerImg {
-  width: 100%;
-  z-index: 0;
+.multiselect-container>li>a>label.radio, .multiselect-container>li>a>label.checkbox {
+	margin: 0
 }
-
-#map {
-  border: 1px solid #D3D3D3;
-  height: 300px;
-  width: 80%;
-  margin: auto;
+.multiselect-container>li>a>label>input[type=checkbox] {
+	margin-bottom: 5px
 }
-
-#dineImg {
-    margin: auto;
-    width: 40%;
-    float: left;
-    margin-right: 20px;
+.btn-group>.btn-group:nth-child(2)>.multiselect.btn {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px
+}
+.form-inline .multiselect-container label.checkbox, .form-inline .multiselect-container label.radio {
+	padding: 3px 20px 3px 40px
+}
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
+	margin-left: -20px;
+	margin-right: 0
 }
 
-#quote {
-	float: left;
-	margin-left: 3px;
-	width: 40%;
+*/
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-#quote p {
-	text-align: right;
+/* Dropdown Content (Hidden by Default) */
+#example-getting-started {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-#subReview {
-	font-style: italic;
-}
 
-.centered {
-	margin: auto;
-	margin-top: 20px;
-    width: 25%;
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
