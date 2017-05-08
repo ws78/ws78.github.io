@@ -17,27 +17,16 @@
 		<!--Username, when logged in -->
 		<h3>username</h3>
 
-		<!-- page header -->
-		<h1>Add Recipe</h1>
-
-		<!-- long form with all the input fields for the recipe -->
-		<form>
-    		<input id="recipeName" type="text" placeholder="Recipe Name"><br>
-    		<input id="prepTime" type="text" placeholder="Prep Time"><br>
-    		<input id="cookingTime" type="text" placeholder="Cooking Time"><br>
-    		<button>Save Recipe</button>
-		</form>
-
     	<!--recipe metadata will go here for testing. eventually this goes on another page -->
     	<!--Create a template in the HTML with placeholders for any data we'll want to add. -->
-    	<div id="recipeData">
-    		<script id="entry-template" type="text/x-handlebars-template">
-      			<h2><a href="recipe.html/?recipeId={{ recipeId }}/">{{recipeName}}</a></h2>
-      			<div>
-        			<p id="prep">{{prepTime}}</p>
-      			</div>
-      		</script>
-    	</div>
+  	<div id="recipeData">
+  		<script id="entry-template" type="text/x-handlebars-template">
+    			<h2><a href="recipe.html/?recipeId={{ recipeId }}/">{{recipeName}}</a></h2>
+    			<div>
+      			<p id="prep">{{prepTime}}</p>
+    			</div>
+    		</script>
+  	</div>
 
 
 

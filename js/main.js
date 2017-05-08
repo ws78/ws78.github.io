@@ -69,6 +69,8 @@ function getRecipes(){
   	// get all recipes stored in the results we received back from Firebase 
     var allRecipes = results.val();
 
+    console.log(allRecipes);
+    sortObject(allRecipes);
     //remove any recipes that are currently being displayed in the .recipeData div so that we can later update the div using Handlebars
     $('.recipeData').empty();
 
@@ -110,7 +112,29 @@ function getRecipes(){
 getRecipes();
 
 
+function getRecipe(id) {
+  var recipesReference = database.ref('recipes/' + id);
+  recipesReference.on('value', function (result) { 
+      console.log(result);
+  });
+}
 
+function sortObject(myObj) {
+  var keys = [],
+      k, i;
+  for (k in myObj) {
+    if (myObj.hasOwnProperty(k)) {
+      keys.push(k);
+    }
+  }
+  keys.sort();
+
+
+  for (i = 0; i < keys.length; i++) {
+    k = keys[i];
+    console.log(k + ':' + myObj[k]);
+  }
+}
 
 /*
 
