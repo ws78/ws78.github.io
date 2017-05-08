@@ -1,42 +1,140 @@
-/*following elements needed:
-- The name of the restaurant
-- A large image of the restaurant
-- A section for reservations that includes:
-- A form to make reservations
-- A table to view existing reservations
-- A section to view the map of its location
-- A customer review
+/*
+$(function() {
+    $('.multiselect-ui').multiselect({
+        includeSelectAllOption: true
+    });
+});
 */
 
-function initMap() {
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDe0jZeAVhFFLg7au3mGFsxO8smZ1m9caA",
+    authDomain: "recipe-test-2279d.firebaseapp.com",
+    databaseURL: "https://recipe-test-2279d.firebaseio.com",
+    projectId: "recipe-test-2279d",
+    storageBucket: "recipe-test-2279d.appspot.com",
+    messagingSenderId: "49097963838"
+  };
+  firebase.initializeApp(config);
 
-    //define an object literal restaurantLocation that contains properties lat and lng who have their respective values.
-    //you will need to retrieve the latitude and longitude values which both live on on the coords property of the position object.
-    var restaurantLocation = {
-      lat: 40.8054491,
-      lng: -73.9654415
-    };
+//Connect to database
+var database = firebase.database();
 
-    //styles variable code will go here
-  
-    //map options object code will go here
-    //element to target is #map, but function is getElementById so we only pass in the name 'map'
-    //properties you need to define are: center whose value will be your restaurantLocation object and zoom which can have various values but feel free to stick with 10 for now.
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: restaurantLocation,
-      zoom: 10
-      //scrollwheel: false
-    });
+
+//create object literal which will hold user input
+var recipe = {};
+
+$('form').on('submit', function (e) {
+  e.preventDefault(); // Prevent the page from reloading
+
+  recipe.name = $('#recipeName').val(); // Grab the values the user entered into the input
+  recipe.prepTime = $('#prepTime').val();
+
+  $('#recipeName').val(''); // Empty out the input field
+  $('#prepTime').val('');
+
+  //post, or send, this reservation info to our Firebase database.
+  //Create a section for recipes data in the database
+  var recipesReference = database.ref('recipes');
+
+   //POST the configured recipe object to your Firebase database using Firebase's .push() method
+  recipesReference.push(recipe);
+
+  alert("recipe successfully added!");
+ });
+
+//add a visual confirmation for the user letting them know if their recipe was added successfully or not. Create a function getRecipes after the form submit event.
+function getRecipes(){
+  var recipesReference = database.ref('recipes');
+
+  //event handler to listen for any changes to the Firebase database
+  recipesReference.on('value', function (results) {
+
+  	// get all recipes stored in the results we received back from Firebase 
+    var allRecipes = results.val();
+
+    //remove any recipes that are currently being displayed in the .recipeData div so that we can later update the div using Handlebars
+    $('.recipeData').empty();
+
+    // for loop to iterate through each recipe in the allRecipes object. create an object named context using an object literal. After you've created the context object, log the name from the context object to the console.
+    // iterate (loop) through all recipes coming from database call
+    // syntax for using a for loop to iterate through an object is for (itemName in objectName)
+    for (var recipe in allRecipes) {
     
-    //marker variable code will go here
-    //one argument, a configuration object with properties position, map and title which must be defined. position is the position of where you want your marker to be, map's value should be your constructed map and the value of title will describe the marker. You can use 'User Location' for the title value. Assign your Marker instance to a variable marker
-    var marker = new google.maps.Marker({
-    position: restaurantLocation,
-    map: map,
-    title: "Monk's Cafe"
+    // Create an object literal with the data we'll pass to Handlebars
+      var context = {
+        recipeName: allRecipes[recipe].name,
+        prepTime: allRecipes[recipe].prepTime,
+        recipeId: recipe
+      };
+
+      //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
+
+      //code for working with the handlebars template
+	  var source = $("#entry-template").html();
+
+	  //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
+	  var template = Handlebars.compile(source);
+
+	  //Add that data to the template we compiled (var newRecipeHTML = template(data);).
+	  //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
+	  var newRecipeHTML = template(context);
+
+	  //Then add the new content to the DOM using a method like append() or html()
+	  //finally, we can now append each new recipe item that uses the template to the page
+	  $('#recipeData').append(newRecipeHTML);
+	}
+
   });
-
-    //Log restaurantLocation to inspect its value.
-     console.log(restaurantLocation);
-    
 }
+
+// When page loads, get recipes
+getRecipes();
+
+
+function getRecipe(id) {
+  if (id == null) {
+      var id = getUrlParameter('id'); //from the query parameter
+  }
+  var recipesReference = database.ref('recipes/' + id);
+  recipesReference.once('value').then(function (result) { 
+     console.log(result.val());//here we want to display the recipe using handleabars
+     console.log(result.val().name);
+       var context = {
+        recipeName: result[0].name,
+        prepTime: result[0].prepTime,
+        recipeId: recipe
+      };
+     var source = $("#entry-template").html();
+     var template = Handlebars.compile(source);
+     var newRecipeHTML = template(context);
+     $('#recipeData').append(newRecipeHTML);
+
+  });
+}
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
