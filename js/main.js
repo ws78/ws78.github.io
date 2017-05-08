@@ -69,8 +69,6 @@ function getRecipes(){
   	// get all recipes stored in the results we received back from Firebase 
     var allRecipes = results.val();
 
-    console.log(allRecipes);
-    sortObject(allRecipes);
     //remove any recipes that are currently being displayed in the .recipeData div so that we can later update the div using Handlebars
     $('.recipeData').empty();
 
@@ -85,8 +83,6 @@ function getRecipes(){
         prepTime: allRecipes[recipe].prepTime,
         recipeId: recipe
       };
-
-      console.log(context.recipeName);
 
       //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
 
@@ -119,21 +115,24 @@ function getRecipe(id) {
   });
 }
 
-function sortObject(myObj) {
-  var keys = [],
-      k, i;
-  for (k in myObj) {
-    if (myObj.hasOwnProperty(k)) {
-      keys.push(k);
+function initRecipe() {
+  var id = getUrlParameter('recipeId');
+  console.log(id);
+}
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
     }
-  }
-  keys.sort();
-
-
-  for (i = 0; i < keys.length; i++) {
-    k = keys[i];
-    console.log(k + ':' + myObj[k]);
-  }
 }
 
 /*
