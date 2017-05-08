@@ -109,15 +109,13 @@ getRecipes();
 
 
 function getRecipe(id) {
+  if (id == null) {
+      var id = getUrlParameter('id');
+  }
   var recipesReference = database.ref('recipes/' + id);
   recipesReference.on('value', function (result) { 
       console.log(result);
   });
-}
-
-function initRecipe() {
-  var id = getUrlParameter('recipeId');
-  console.log(id);
 }
 
 function getUrlParameter(sParam) {
