@@ -84,8 +84,6 @@ function getRecipes(){
         recipeId: recipe
       };
 
-      console.log(context.recipeName);
-
       //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
 
       //code for working with the handlebars template
@@ -110,7 +108,30 @@ function getRecipes(){
 getRecipes();
 
 
+function getRecipe(id) {
+  if (id == null) {
+      var id = getUrlParameter('id');
+  }
+  var recipesReference = database.ref('recipes/' + id);
+  recipesReference.on('value', function (result) { 
+      console.log(result);
+  });
+}
 
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+}
 
 /*
 
