@@ -87,34 +87,44 @@ function getRecipes(){
       //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
 
       //code for working with the handlebars template
-	  var source = $("#entry-template").html();
+  	  var source = $("#entry-template").html();
 
-	  //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
-	  var template = Handlebars.compile(source);
+  	  //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
+  	  var template = Handlebars.compile(source);
 
-	  //Add that data to the template we compiled (var newRecipeHTML = template(data);).
-	  //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
-	  var newRecipeHTML = template(context);
+  	  //Add that data to the template we compiled (var newRecipeHTML = template(data);).
+  	  //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
+  	  var newRecipeHTML = template(context);
 
-	  //Then add the new content to the DOM using a method like append() or html()
-	  //finally, we can now append each new recipe item that uses the template to the page
-	  $('#recipeData').append(newRecipeHTML);
-	}
+  	  //Then add the new content to the DOM using a method like append() or html()
+  	  //finally, we can now append each new recipe item that uses the template to the page
+  	  $('#recipeData').append(newRecipeHTML);
+  	}
 
   });
 }
 
-// When page loads, get recipes
-getRecipes();
+var recipeId = getUrlParameter('recipeId');
 
+if (recipeId != undefined) {
+    getRecipe(recipeId);
+} else {
+    // When page loads, get all recipes
+    getRecipes();
+}
 
 function getRecipe(id) {
-  if (id == null) {
-      var id = getUrlParameter('id');
-  }
   var recipesReference = database.ref('recipes/' + id);
-  recipesReference.on('value', function (result) { 
-      console.log(result);
+  recipesReference.once('value').then(function (result) {
+    var context = {
+      recipeName: result.val().name,
+      prepTime: result.val().prepTime,
+      recipeId: id
+    };
+    var source = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+    var newRecipeHTML = template(context);
+    $('#recipeData').append(newRecipeHTML);
   });
 }
 
