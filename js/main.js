@@ -104,7 +104,7 @@ function editRecipe() {
 }
 
 //event handler to handle when user clicks the edit recipe link
-$('editLink').on('click', function (e) {
+$('#recipeData').on('click', '.edit-link', function (e) {
 
   e.preventDefault(); // Prevent the page from reloading
   console.log('hello');
