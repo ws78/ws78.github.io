@@ -37,23 +37,13 @@ $('form').on('submit', function (e) {
   var recipesReference = database.ref('recipes');
 
    //POST the configured recipe object to your Firebase database using Firebase's .push() method
-  recipesReference.push(recipe);
+  var latestRecipe = recipesReference.push(recipe);
+  //console.log('the latest recipe is ', latestRecipe.key);
+  window.location = 'recipe.html?recipeId=' +latestRecipe.key;
 
-  var newKey = recipesReference.push(recipe).key();
-  var newPostKey = recipesReference.child('recipes').push().key;
-
-  console.log(newKey);
-  console.log(newPostKey);
-
-
-
-
-
-
-  //the function here should take ONLY the last recipe and display the linked name
-  //getOneRecipe();
-  
  });
+
+
 
 //add a visual confirmation for the user letting them know if their recipe was added successfully or not. Create a function getRecipes after the form submit event.
 //'recipes' is the db reference we create here
@@ -82,34 +72,52 @@ function getRecipes(){
         recipeId: recipe
       };
 
-      //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
 
-      //code for working with the handlebars template
-  	  var source = $("#entry-template").html();
+      var source = $("#entry-template");
+ 
+      if (source.html() != undefined) {
+           //get the html from the Handlebars template, compile the template, and then append the newly created list item to the list that has a class of .recipeData
 
-  	  //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
-  	  var template = Handlebars.compile(source);
+          //code for working with the handlebars template
+          var source = $("#entry-template").html();
 
-  	  //Add that data to the template we compiled (var newRecipeHTML = template(data);).
-  	  //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
-  	  var newRecipeHTML = template(context);
+          //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
+          var template = Handlebars.compile(source);
 
-  	  //Then add the new content to the DOM using a method like append() or html()
-  	  //finally, we can now append each new recipe item that uses the template to the page
-  	  $('#recipeData').append(newRecipeHTML);
+          //Add that data to the template we compiled (var newRecipeHTML = template(data);).
+          //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
+          var newRecipeHTML = template(context);
+
+          //Then add the new content to the DOM using a method like append() or html()
+          //finally, we can now append each new recipe item that uses the template to the page
+          $('#recipeData').append(newRecipeHTML);
+      } 
+     
   	}
 
   });
 }
+
+//function to edit the values in a currently stored recipe - we should run an event handler and this will be part of it
+function editRecipe() {
+
+}
+
+//event handler to handle when user clicks the edit recipe link
+$('editLink').on('click', function (e) {
+
+  e.preventDefault(); // Prevent the page from reloading
+  console.log('hello');
+  //some more code will run here
+
+});
 
 
 
 
 // where 'recipeID' argument comes from the firebase id of that particular recipe
 var recipeId = getUrlParameter('recipeId');
-//console.log('this is the recipeID ', recipeId);
 
-//What I want is something that allows me to set the logic where if we have the id, display the single recipe, if it is undefined either display all recipes or wait until the form submit to get the id and display the single recipe
 if (recipeId != undefined) {
     getRecipe(recipeId);
 } else {
@@ -151,43 +159,6 @@ function getUrlParameter(sParam) {
     }
 }
 
-  function getOneRecipe() {
-
-    var recipesReference = database.ref('recipes');
-    recipesReference.on('child_added', function(recipe, prevChildKey) {
-      var newRecipe = recipe.val();
-      console.log("new recipe Name: " + newRecipe.name);
-
-      //remove any recipes that are currently being displayed in the .recipeData div so that we can later update the div using Handlebars
-      $('.recipeData').empty();
-
-       // Create an object literal with the data we'll pass to Handlebars
-      var context = {
-        recipeName: newRecipe.name,
-        recipeId: newRecipe
-      };
-
-      console.log('this is recipeId for last recipe', recipeId);
-
-      //getRecipe(recipeId);
-/*
-      //code for working with the handlebars template
-      var source = $("#entry-template").html();
-
-      //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
-      var template = Handlebars.compile(source);
-
-      //Add that data to the template we compiled (var newRecipeHTML = template(data);).
-      //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
-      var newRecipeHTML = template(context);
-
-      //Then add the new content to the DOM using a method like append() or html()
-      //finally, we can now append each new recipe item that uses the template to the page
-      $('#recipeData').append(newRecipeHTML);
-*/
-
-    });
-  }
 
 
 
