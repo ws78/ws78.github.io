@@ -6,19 +6,6 @@ $(function() {
 });
 */
 
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDe0jZeAVhFFLg7au3mGFsxO8smZ1m9caA",
-    authDomain: "recipe-test-2279d.firebaseapp.com",
-    databaseURL: "https://recipe-test-2279d.firebaseio.com",
-    projectId: "recipe-test-2279d",
-    storageBucket: "recipe-test-2279d.appspot.com",
-    messagingSenderId: "49097963838"
-  };
-  firebase.initializeApp(config);
-
-//Connect to database
-var database = firebase.database();
 
 
 //create object literal which will hold user input
@@ -107,23 +94,16 @@ function editRecipe() {
 $('#recipeData').on('click', '.edit-link', function (e) {
 
   e.preventDefault(); // Prevent the page from reloading
-  console.log('hello');
-  //some more code will run here
+  console.log($(e.target).data('id'));
+  //now we can redirect to add page with id as parameter
+  window.location = 'add.html?recipeId=' +$(e.target).data('id');
 
 });
 
 
 
 
-// where 'recipeID' argument comes from the firebase id of that particular recipe
-var recipeId = getUrlParameter('recipeId');
 
-if (recipeId != undefined) {
-    getRecipe(recipeId);
-} else {
-    // When page loads, get all recipes
-    getRecipes();
-}
 
 //where the id passed in is the recipeId from above (ie. firebase id of the recipe)
 //so if we have an id, we can display the entire recipe, otherwise we do like above where we only display the title of the recipe
