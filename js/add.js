@@ -10,23 +10,19 @@ if (recipeId != undefined) {
     //then run event handler on submit and send new recipe values to firebase
     console.log(recipeId);
 
+
+
+
      // find recipe whose recipeId is equal to the id we're searching with
      //var recipeReference = database.ref('recipes/' + recipeId);
-     var recipeData = recipeId.value;
-     console.log(recipeData.name);
 
-     /*
-     recipeReference.once("value").then(function(snapshot) {
-      var key = snapshot.key;
-      console.log(key);
-      var childKey = snapshot.child(key +"/name").val;
-      console.log(childKey);
-     });
-     */
+    firebase.database().ref('recipes/' + recipeId).once('value').then(function(snapshot) {
+      console.log(snapshot.val().name);
+    });
+     
 
 
 
-   $('#recipeName').val(database.ref(recipeId));
     //https://recipe-test-2279d.firebaseio.com/-KkI3zGYxvUBwO1xAjKt
 
    // $('#recipeName').val(database.ref(recipeId/name));
