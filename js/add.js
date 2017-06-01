@@ -8,34 +8,49 @@ var recipeId = getUrlParameter('recipeId');
 if (recipeId != undefined) {
     //if we have a recipeID, then use that to pull values from firebase and fill in the fields. 
     //then run event handler on submit and send new recipe values to firebase
-    console.log(recipeId);
 
-     // find recipe whose recipeId is equal to the id we're searching with
-     //var recipeReference = database.ref('recipes/' + recipeId);
-     var recipeData = recipeId.value;
-     console.log(recipeData.name);
+    //We provide the location in the db that we want to pull values from
+    var recipeReference = database.ref('recipes/' + recipeId);
 
-     /*
-     recipeReference.once("value").then(function(snapshot) {
-      var key = snapshot.key;
-      console.log(key);
-      var childKey = snapshot.child(key +"/name").val;
-      console.log(childKey);
-     });
-     */
+    //We want to read the data once as opposed to listening for a change, so we use .once. Then using the snapshot method, we can see what the data looks like at recipeReference.
+    recipeReference.once('value').then(function(snapshot) {
+      //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
+      var formName = snapshot.val().name;
+      var formPrep = snapshot.val().prepTime;
+      $('#recipeName').val(formName);
+      $('#prepTime').val(formPrep);
 
+    });
+    //we need to run the event handler on submit now
+    $('form').on('submit', function (e) {
+      e.preventDefault(); // Prevent the page from reloading
 
+      recipe.name = $('#recipeName').val(); // Grab the values the user entered into the input
+      recipe.prepTime = $('#prepTime').val();
 
-   $('#recipeName').val(database.ref(recipeId));
-    //https://recipe-test-2279d.firebaseio.com/-KkI3zGYxvUBwO1xAjKt
+      $('#recipeName').val(''); // Empty out the input field
+      $('#prepTime').val('');
 
-   // $('#recipeName').val(database.ref(recipeId/name));
-    //https://recipe-test-2279d.firebaseio.com/recipeId/name
+      
+      //We provide the location in the db that we want to push new values to
+      var recipeReference = database.ref('recipes/' + recipeId);
 
+      //UPDATE the configured recipe object to your Firebase database using Firebase's .update() method
+      var latestRecipe = recipeReference.update(recipe);
 
-    //$('#prepTime').val(database.ref(recipeId/prepTime));
+      recipeReference.once('value').then(function(snapshot) {
+        //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
+
+        console.log(snapshot.val().prepTime);
+        console.log('recipe.html?recipeId=' +latestRecipe.key);
+
+      });
+
+      //redirect user to the updated recipe page
+      //window.location = 'recipe.html?recipeId=' +latestRecipe.key;
+      
+    });
 } else {
-    // When page loads, run event handler on submit and send new recipe values to firebase
     $('form').on('submit', function (e) {
       e.preventDefault(); // Prevent the page from reloading
 
@@ -54,3 +69,4 @@ if (recipeId != undefined) {
       window.location = 'recipe.html?recipeId=' +latestRecipe.key;
  });
 }
+

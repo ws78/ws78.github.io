@@ -1,13 +1,7 @@
+
+
+
 /*
-$(function() {
-    $('.multiselect-ui').multiselect({
-        includeSelectAllOption: true
-    });
-});
-*/
-
-
-
 //create object literal which will hold user input
 var recipe = {};
 
@@ -29,11 +23,12 @@ $('form').on('submit', function (e) {
   window.location = 'recipe.html?recipeId=' +latestRecipe.key;
 
  });
+*/
 
 
-
-//add a visual confirmation for the user letting them know if their recipe was added successfully or not. Create a function getRecipes after the form submit event.
-//'recipes' is the db reference we create here
+//add a visual confirmation for the user letting them know if their recipe was added successfully or not. 
+//Create a function getRecipes after the form submit event.
+//the argument 'recipes' is the db reference that we create here
 //this function will get the list of recipes showing only the names of the recipes
 function getRecipes(){
   var recipesReference = database.ref('recipes');
@@ -85,10 +80,6 @@ function getRecipes(){
   });
 }
 
-//function to edit the values in a currently stored recipe - we should run an event handler and this will be part of it
-function editRecipe() {
-
-}
 
 //event handler to handle when user clicks the edit recipe link
 $('#recipeData').on('click', '.edit-link', function (e) {
@@ -103,13 +94,14 @@ $('#recipeData').on('click', '.edit-link', function (e) {
 
 
 
-
-
-//where the id passed in is the recipeId from above (ie. firebase id of the recipe)
+//where the argument 'id' is the recipeId from above (ie. firebase id of the recipe)
 //so if we have an id, we can display the entire recipe, otherwise we do like above where we only display the title of the recipe
 function getRecipe(id) {
   //this pulls the recipe located at recipes/id from firebase
+  console.log(id);
   var recipesReference = database.ref('recipes/' + id);
+  //console.log(recipesReference);
+
   recipesReference.once('value').then(function (result) {
     var context = {
       recipeName: result.val().name,
