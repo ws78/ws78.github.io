@@ -42,12 +42,11 @@ if (recipeId != undefined) {
         //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
 
         console.log(snapshot.val().prepTime);
-        console.log('recipe.html?recipeId=' +latestRecipe.key);
-
+        console.log('recipe.html?recipeId=' + snapshot.key);
+        window.location = 'recipe.html?recipeId=' + snapshot.key;
       });
 
       //redirect user to the updated recipe page
-      //window.location = 'recipe.html?recipeId=' +latestRecipe.key;
       
     });
 } else {
@@ -65,8 +64,8 @@ if (recipeId != undefined) {
 
        //POST the configured recipe object to your Firebase database using Firebase's .push() method
       var latestRecipe = recipesReference.push(recipe);
-      //console.log('the latest recipe is ', latestRecipe.key);
-      window.location = 'recipe.html?recipeId=' +latestRecipe.key;
+      console.log('the latest recipe is ', latestRecipe);
+      //window.location = 'recipe.html?recipeId=' +latestRecipe.key;
  });
 }
 
