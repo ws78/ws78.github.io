@@ -42,11 +42,13 @@ if (recipeId != undefined) {
         //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
 
         console.log(snapshot.val().prepTime);
-        console.log('recipe.html?recipeId=' + snapshot.key);
-        window.location = 'recipe.html?recipeId=' + snapshot.key;
+        console.log('recipe.html?recipeId=' +snapshot.key);
+        //redirect user to the updated recipe page
+        window.location = 'recipe.html?recipeId=' +latestRecipe.key;
+
+
       });
 
-      //redirect user to the updated recipe page
       
     });
 } else {
