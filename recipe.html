@@ -5,7 +5,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>Add Recipe</title>
+      <title>Recipe</title>
       <!-- Bootstrap -->
       <link href="css/bootstrap.min.css" rel="stylesheet"> 
       <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -47,13 +47,20 @@
       <!--Create a template in the HTML with placeholders for any data we'll want to add. -->
     <div id="recipeData">
       <script id="entry-template" type="text/x-handlebars-template">
+      	<div>
           <h2><a href="recipe.html?recipeId={{ recipeId }}/">{{recipeName}}</a></h2>
-          <div>
-          <!--this line may need more work, just placeholder text right now -->
-            <a data-id="{{recipeId}}" class="edit-link" href="#">Edit this recipe</a>
-            <p id="prep">{{prepTime}}</p>
-          </div>
-        </script>
+          <a data-id="{{recipeId}}" class="edit-link" href="#">Edit this recipe</a>
+        </div>
+        <div class='show'>
+            <p id="prep"><span class='boldHeader'>Prep Time:</span> {{prepTime}}</p>
+            <p id="cook"><span class='boldHeader'>Cooking Time:</span> {{cookTime}}</p>
+            <p id="total"><span class='boldHeader'>Total Time:</span> {{totalTime}}</p>
+            <p id="serves"><span class='boldHeader'>Serves:</span> {{serves}}</p>
+            <p id="ingredients"><span class='boldHeader'>Ingredients:</span></br>{{ingredients}}</p>
+            <p id="directions"><span class='boldHeader'>Directions:</span></br>{{directions}}</p>
+            <p id="mealType"><span class='boldHeader'>Meal Type:</span> {{mealType}}</p> 
+        </div>
+      </script>
     </div>
 
 

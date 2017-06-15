@@ -118,7 +118,7 @@ span.multiselect-native-select select {
     width:220px; 
     padding:5px 8px;
 }
-.recipe_form textarea {padding:8px; width:300px;}
+.recipe_form textarea {padding:8px; width:300px; height:300px;}
 .recipe_form button {margin-left:156px;}
 .recipe_form input, .recipe_form textarea { 
     border:1px solid #aaa;
@@ -190,7 +190,13 @@ button.submit:active {
 .recipe_form input:required:valid + .form_hint {background: #28921f;} /* change form hint color when valid */
 .recipe_form input:required:valid + .form_hint::before {color:#28921f;} /* change form hint arrow color when valid */
 
+#ingredients, #directions {
+    white-space: pre-wrap;
+}
 
+.boldHeader {
+    font-weight: bold;
+}
 
 
 

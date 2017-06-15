@@ -17,8 +17,20 @@ if (recipeId != undefined) {
       //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
       var formName = snapshot.val().name;
       var formPrep = snapshot.val().prepTime;
+      var formCook = snapshot.val().cookTime;
+      var formTotal = snapshot.val().totalTime;
+      var formServes = snapshot.val().serves;
+      var formIngredients = snapshot.val().ingredients;
+      var formDirections = snapshot.val().directions;
+      var formMealType = snapshot.val().mealType;
       $('#recipeName').val(formName);
       $('#prepTime').val(formPrep);
+      $('#cookingTime').val(formCook);
+      $('#totalTime').val(formTotal);
+      $('#serves').val(formServes);
+      $('#ingredients').val(formIngredients);
+      $('#directions').val(formDirections);
+      $('#mealType').val(formMealType);
 
     });
     //we need to run the event handler on submit now
@@ -27,9 +39,21 @@ if (recipeId != undefined) {
 
       recipe.name = $('#recipeName').val(); // Grab the values the user entered into the input
       recipe.prepTime = $('#prepTime').val();
+      recipe.cookTime = $('#cookingTime').val();
+      recipe.totalTime = $('#totalTime').val();
+      recipe.serves = $('#serves').val();
+      recipe.ingredients = $('#ingredients').val();
+      recipe.directions = $('#directions').val();
+      recipe.mealType = $('#mealType').val();
 
       $('#recipeName').val(''); // Empty out the input field
       $('#prepTime').val('');
+      $('#cookingTime').val('');
+      $('#totalTime').val('');
+      $('#serves').val('');
+      $('#ingredients').val('');
+      $('#directions').val('');
+      $('#mealType').val('');
 
       
       //We provide the location in the db that we want to push new values to
@@ -39,16 +63,10 @@ if (recipeId != undefined) {
       var latestRecipe = recipeReference.update(recipe);
 
       recipeReference.once('value').then(function(snapshot) {
-        //Then from the snapshot of the data, we can pull the values for each part of the object. Then send that value to the HTML
-
-        console.log(snapshot.val().prepTime);
-        console.log('recipe.html?recipeId=' +latestRecipe.key);
-
+        //Then from the snapshot of the data, we can get the key of the recipe object and use that to redirect the user to the updated recipe page
+        window.location = 'recipe.html?recipeId=' +snapshot.key;
       });
-
-      //redirect user to the updated recipe page
-      //window.location = 'recipe.html?recipeId=' +latestRecipe.key;
-      
+ 
     });
 } else {
     $('form').on('submit', function (e) {
@@ -56,9 +74,21 @@ if (recipeId != undefined) {
 
       recipe.name = $('#recipeName').val(); // Grab the values the user entered into the input
       recipe.prepTime = $('#prepTime').val();
+      recipe.cookTime = $('#cookingTime').val();
+      recipe.totalTime = $('#totalTime').val();
+      recipe.serves = $('#serves').val();
+      recipe.ingredients = $('#ingredients').val();
+      recipe.directions = $('#directions').val();
+      recipe.mealType = $('#mealType').val();
 
       $('#recipeName').val(''); // Empty out the input field
       $('#prepTime').val('');
+      $('#cookingTime').val('');
+      $('#totalTime').val('');
+      $('#serves').val('');
+      $('#ingredients').val('');
+      $('#directions').val('');
+      $('#mealType').val('');
 
       //Create a section for recipes data in the database, 'recipes' will be our reference
       var recipesReference = database.ref('recipes');

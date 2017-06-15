@@ -1,31 +1,4 @@
 
-
-
-/*
-//create object literal which will hold user input
-var recipe = {};
-
-$('form').on('submit', function (e) {
-  e.preventDefault(); // Prevent the page from reloading
-
-  recipe.name = $('#recipeName').val(); // Grab the values the user entered into the input
-  recipe.prepTime = $('#prepTime').val();
-
-  $('#recipeName').val(''); // Empty out the input field
-  $('#prepTime').val('');
-
-  //Create a section for recipes data in the database, 'recipes' will be our reference
-  var recipesReference = database.ref('recipes');
-
-   //POST the configured recipe object to your Firebase database using Firebase's .push() method
-  var latestRecipe = recipesReference.push(recipe);
-  //console.log('the latest recipe is ', latestRecipe.key);
-  window.location = 'recipe.html?recipeId=' +latestRecipe.key;
-
- });
-*/
-
-
 //add a visual confirmation for the user letting them know if their recipe was added successfully or not. 
 //Create a function getRecipes after the form submit event.
 //the argument 'recipes' is the db reference that we create here
@@ -54,7 +27,6 @@ function getRecipes(){
         recipeId: recipe
       };
 
-
       var source = $("#entry-template");
  
       if (source.html() != undefined) {
@@ -62,6 +34,7 @@ function getRecipes(){
 
           //code for working with the handlebars template
           var source = $("#entry-template").html();
+          console.log(source);
 
           //Compile the template using the Handlebars.compile() method, passing in the HTML for the template (stored in the variable source) as the parameter:
           var template = Handlebars.compile(source);
@@ -70,11 +43,14 @@ function getRecipes(){
           //Now we want to pass in this data to the template we compiled in step 2 that is stored in the variable template:
           var newRecipeHTML = template(context);
 
+
           //Then add the new content to the DOM using a method like append() or html()
           //finally, we can now append each new recipe item that uses the template to the page
           $('#recipeData').append(newRecipeHTML);
+          console.log('i am inside getRecipes');
+          $('.show').empty();
+
       } 
-     
   	}
 
   });
@@ -92,8 +68,6 @@ $('#recipeData').on('click', '.edit-link', function (e) {
 });
 
 
-
-
 //where the argument 'id' is the recipeId from above (ie. firebase id of the recipe)
 //so if we have an id, we can display the entire recipe, otherwise we do like above where we only display the title of the recipe
 function getRecipe(id) {
@@ -106,13 +80,22 @@ function getRecipe(id) {
     var context = {
       recipeName: result.val().name,
       prepTime: result.val().prepTime,
+      cookTime: result.val().cookTime,
+      totalTime: result.val().totalTime,
+      serves: result.val().serves,
+      ingredients: result.val().ingredients,
+      directions: result.val().directions,
+      mealType: result.val().mealType,
       recipeId: id
     };
     var source = $("#entry-template").html();
     var template = Handlebars.compile(source);
     var newRecipeHTML = template(context);
+    //console.log(newRecipeHTML);
     //here we can add an append to various element id's so that either we display a link on one page, the full recipe on another or a link and header on a third
     $('#recipeData').append(newRecipeHTML);
+    //console.log($('#recipeData').html());
+    
   });
 }
 
